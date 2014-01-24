@@ -3,34 +3,41 @@ Vim Skip
 
 New
 ---
-* [Vertical Mode](https://github.com/jayflo/vim-skip#vertical)
+* [Vertical Mode](https://github.com/atelierbram/vim-skip#vertical)
+
+
+About this Fork
+---------------
+
+Like the ideas [behind the plugin](https://github.com/jayflo/vim-skip) a lot, but can't get over the default remapping of ``Substitution - s``, and couldn't get the remap [options](https://github.com/atelierbram/vim-skip#options) to work, while keeping ``s`` as ``Substitution`` (probably my bad - impatience) so decided to hack it. So kudos to [JayFlo](https://github.com/jayflo), but here are my remappings:
 
 TLDR
 ----
 
-``s`` - skips *forward* half the distance between the cursor and the end of the line.
+``<leader>l`` - skips *forward* half the distance between the cursor and the end of the line.
+
 ```
 *    cursor                                 ___ white space
----> movement of cursor after press of s    ### non-whitespace
+---> movement of cursor after press of <leader>l    ### non-whitespace
 
 
-Press s once to get to here..\/   again...  \/ ...  \/ .....etc.
+Press <leader>l once to get to here..\/   again...  \/ ...  \/ .....etc.
 *---------------------------> * -----------> * ---> * -> *
 |_____#__########_###_____##################_____#####____|  <--- a line in buffer
 ```
 
-``S`` - skips *backward* half the distance between the cursor and the beginning of the line.
+``<leader>h`` - skips *backward* half the distance between the cursor and the beginning of the line.
 ```
 *    cursor                                 ___ white space
 ---> movement of cursor after press of s    ### non-whitespace
 
 
-                          \/ Press S once from end of line
+                          \/ Press <leader>h once from end of line
  * <- * <---- * <--------- * <-----------------------------
 |_____#__########_###_____##################_____#####____|  <--- a line in buffer
 ```
 
-``gs`` moves your cursor to the center of the line.
+``<leader><leader>l`` moves your cursor to the center of the line.
 
 This plugin provides 3 other ways to skip around the current line, but this is the default.  Of course, you do not need to start from the beginning/end of the line; the logarithmic skipping happens relative to the cursor.  You can also:
 
@@ -41,16 +48,16 @@ This plugin provides 3 other ways to skip around the current line, but this is t
 5. skip through the end of the line to wrap to the succeeding/preceeding line
 
 You can stack options 3,5 or 4,5 to, for example, wrap to the center of the succeeding line by skiping through the end of the current line.  This "logarithmic skipping" is the default functionality of vim-skip but perhaps not the most useful depending on the layout of files you commonly edit.  See the Modes section below for other behaviors.
- 
+
 
 Intro
 -----
 
 Vim-skip attempts to provide a "mid-range" movement, between the longer ``$``,
-``0`` and the shorter ``w``, ``W``, ``e``, ``E``, ``b``, ``B``.  It is built to *quickly* move the cursor to parts of the line which can otherwise be difficult to get to, e.g. the middle half of the line.   It is more precise than 
+``0`` and the shorter ``w``, ``W``, ``e``, ``E``, ``b``, ``B``.  It is built to *quickly* move the cursor to parts of the line which can otherwise be difficult to get to, e.g. the middle half of the line.   It is more precise than
 ``$``, ``0`` while not filling the role of ``w``, ``W``, ``e``, ``E``,
 ``b``, ``B``.  These word/WORD text object motions are *necessary* and vim-skip *does not
-want to* replace them.  Instead, Vim-skip hopes to complement them by providing a fast way to get your cursor nearby any word on the line, no matter how long the line may be.  
+want to* replace them.  Instead, Vim-skip hopes to complement them by providing a fast way to get your cursor nearby any word on the line, no matter how long the line may be.
 
 Though there are multiple options and modes, Vim-skip *does not attempt to
 provide* you many mid-range motions!  Rather, it strives to provide a minimal
@@ -114,7 +121,7 @@ The distance your cursor skips always (except in fixed mode) depends on its
 position in the line.  Fractions will always represent the *actual* position of
 the cursor in the line as a fraction of the line's length, e.g. ``0``, ``1/2``
 and ``1`` mean the cursor is at the beginning, middle and end of the line
-respectively.  
+respectively.
 
 To give brief examples of how sequences like ``sS`` behave, I'll write
 ``0 --s--> 1/2 --S--> 1/4`` to mean "first press ``s`` then ``S`` move your
@@ -193,20 +200,20 @@ This mode moves the cursor through the ends of the lines *quickly* and slows
 near the center.  It receives its name from the following visual:
 
 ```
-                       Turning a line of a buffer into a circle by 
+                       Turning a line of a buffer into a circle by
                        joining the beginning and end of the line, which
                        becomes the north pole of the circle.  We then
-                       move the points we logarithmically skip toward to 
-                       the south pole, then unwrap.  We now skip slowly 
+                       move the points we logarithmically skip toward to
+                       the south pole, then unwrap.  We now skip slowly
                        toward the center!
 | = ends of line
 * = center of line          -->||<--             ---||---          Anti mode
                            /        \           /        \
  |<---*--->|      ===>    |          |   ===>  |          |  ===> |----->*<-----|
   ^       ^                \        /           \        /              ^ ^
-  |       |                 ---*----             --->*<--               | |  
+  |       |                 ---*----             --->*<--               | |
   |       |                                                             | |
- a line in the buffer where the <,> mark points which we skip slowly toward in 
+ a line in the buffer where the <,> mark points which we skip slowly toward in
  normal and anti modes.
 ```
 
@@ -264,16 +271,24 @@ This is normal mode except that you skip vertically as opposed to horizontally. 
 
 To map these put, for example, ``nmap <F1> <Plug>ToggleVertical`` in your ``.vimrc``.  See also ``g:vimskip_wraptomiddleline``.
 
+example ``.vimrc``:
+
+```
+nmap <silent><leader>j <Plug>NORMALDown
+nmap <silent><leader>k <Plug>NORMALUp
+nmap <F1> <Plug>ToggleVertical
+```
+
 Options
 =======
 
 * ``g:vimskip_disable_default_maps``: set to 1 to not use the default key
-  mappings (``s``, ``S``, ``gs``).  Default 0.
-* ``g:vimskip_mapforwardskip``: key to map forward skip.  Default 's'.
-* ``g:vimskip_mapbackwardskip``: key to map backward skip.  Default 'S'.
-* ``g:vimskip_maptocenter``: key to map movement to center of line.  Default 'gs'.
+  mappings (``<leader>l`` ``<leader>h``, ``<leader><leader>l``).  Default 0.
+* ``g:vimskip_mapforwardskip``: key to map forward skip.  Default '<leader>l'.
+* ``g:vimskip_mapbackwardskip``: key to map backward skip.  Default '<leader>h'.
+* ``g:vimskip_maptocenter``: key to map movement to center of line.  Default '<leader><leader>l'
 * ``g:vimskip_multiplier``: (float) between 0 and 1.  Determines the fraction of
-  a distance to skip. Values greater than ``1`` were not intended to be used, 
+  a distance to skip. Values greater than ``1`` were not intended to be used,
   though they are not restricted.  You currently cannot skip past the succeeding line
   when ``g:vimskip_helix`` is active.  Default ``0.5``.
 * ``g:vimskip_mode``: one of "normal", "split", "fixed" or "anti".  Default
@@ -306,7 +321,7 @@ Map these using, e.g. ``nmap <F1> <Plug>SwitchMode``.
 * ``<Plug>DecreaseMultiplier``: Decrease ``g:vimskip_multiplier``by ``0.05``.
 * ``VSMultiplier(x)``: Call this from the command line to set ``g:vimskip_multipler`` to the value given by the float ``0 < x < 1``.
 
-The following are all the modes' skip functions. 
+The following are all the modes' skip functions.
 
 * ``<Plug>ToCenter``
 * ``<Plug>NORMALForward``
@@ -327,8 +342,8 @@ A special thanks to the nice people at #vim for answering my stupid questions.  
 
 Constructive feedback would be great!  This is my first vim script and I am a
 newbie to both vim and programming in general.  It is my intent for this plugin
-to provide a new way of thinking about motions, not necessarly to showcase my 
-technical prowess.  If nothing else, I hope some vim afficianados take a look 
+to provide a new way of thinking about motions, not necessarly to showcase my
+technical prowess.  If nothing else, I hope some vim afficianados take a look
 this and go on to create something very clever!
 
 Please take a look at the code, if you so desire, and let me know of optimizations.  There are currently no comments, but it is written to be readable (since optimal is

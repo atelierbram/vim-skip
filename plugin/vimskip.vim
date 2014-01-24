@@ -17,9 +17,9 @@ let g:vimskip_split_passthroughcenter   = get(g:, 'vimskip_split_passthroughcent
 let g:vimskip_helix                     = get(g:, 'vimskip_helix', 0)
 let g:vimskip_ignore_initial_ws         = get(g:, 'vimskip_ignore_initial_ws', 1)
 let g:vimskip_ignore_trailing_ws        = get(g:, 'vimskip_ignore_trailing_ws', 1)
-let g:vimskip_mapforwardskip            = get(g:, 'vimskip_mapforwardskip', 's')
-let g:vimskip_mapbackwardskip           = get(g:, 'vimskip_mapbackwardskip', 'S')
-let g:vimskip_maptocenter               = get(g:, 'vimskip_maptocenter', 'gs')
+let g:vimskip_mapforwardskip            = get(g:, 'vimskip_mapforwardskip', '<leader>l')
+let g:vimskip_mapbackwardskip           = get(g:, 'vimskip_mapbackwardskip', '<leader>h')
+let g:vimskip_maptocenter               = get(g:, 'vimskip_maptocenter', '<leader><leader>l')
 
 let modes = ["normal", "split", "fixed", "anti"]
 if !(index(modes, g:vimskip_mode) >= 0)
