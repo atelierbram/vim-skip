@@ -135,9 +135,9 @@ Normal
 **The default mode**.  This mode works well for getting the cursor across the
 line quickly and slows down near the beginning/end of the line.
 
-* ``s`` - skips *forward* half (default, can be changed.  Applicable for every
+* ``<leader>l`` - skips *forward* half (default, can be changed.  Applicable for every
   mode) the distance between the cursor and the end of the line.
-* ``S`` - skips *backward* half the distance between the cursor and the
+* ``<leader>h`` - skips *backward* half the distance between the cursor and the
   beginning of the line.
 
 **Examples**
@@ -155,10 +155,10 @@ line *separately*.  This mode is best for files with *long* lines coupled with
 ``$``, ``0`` to get you from the first half of the line to the second half
 quickly.
 
-* ``s`` - skips forward half the distance to the:
+* ``<leader>l`` - skips forward half the distance to the:
     * center, when the cursor is in the first half of the line
     * end of the line, when the cursor is in the second of the line
-* ``S`` - skip backward half the distance to:
+* ``<leader>h`` - skip backward half the distance to:
     * center, when the cursor is in the second half of the line
     * beginning of the line, when the cursor is in the first half of the line
 
@@ -170,11 +170,11 @@ quickly.
 * ``1 --S--> 3/4 --s--> 7/8``
 * ``anywhere --gs--> 1/2 --s--> 3/4``
 
-By default, tapping ``s`` from the beginning of the line will eventually allow
-you to "pass through" to the second half of the line (likewise for ``S`` moving
+By default, tapping ``<leader>l`` from the beginning of the line will eventually allow
+you to "pass through" to the second half of the line (likewise for ``<leader>h`` moving
 from the second half).  This is customizable, however, this would take more
-``s`` presses than one would want to actually use.  If it is your goal to get to the center,
-simply ``gs``, or to the second half of the line ``gss`` or ``$S``.
+``<leader>l`` presses than one would want to actually use.  If it is your goal to get to the center,
+simply ``<leader><leader>l``.
 
 Fixed
 -----
@@ -183,10 +183,10 @@ The simplest of all the modes.  The amount the cursor moves depends only on the
 length of the line, not the cursor position within the line.  When using this
 mode, be sure to adjust ``g:vimskip_multiplier``.
 
-* ``s`` - skip cursor forward ``(line length) * (g:vimskip_multiplier)``.  The
+* ``<leader>l`` - skip cursor forward ``(line length) * (g:vimskip_multiplier)``.  The
   variable ``g:vimskip_multipler=0.5`` by default (useful for other modes) which
   is not helpul here.  Lower values are more appropriate.
-* ``S`` - skip cursor backward ``(line length) * (g:vimskip_multiplier)``.
+* ``<leader>h`` - skip cursor backward ``(line length) * (g:vimskip_multiplier)``.
 
 **Examples** (when ``g:vimskip_multiplier=0.2``)
 * ``0 --s--> 1/5 --s--> 2/5`` etc.
@@ -217,8 +217,8 @@ near the center.  It receives its name from the following visual:
  normal and anti modes.
 ```
 
-So if you imagine joining the ends of the line, we get a circle.  Then ``s``
-skips counter-clockwise and ``S`` clockwise.  In normal mode, both skip half the
+So if you imagine joining the ends of the line, we get a circle.  Then ``<leader>l``
+skips counter-clockwise and ``<leader>h`` clockwise.  In normal mode, both skip half the
 arc length from their current position to the north pole.  In anti(podal) mode,
 simply move the point which we skip toward to the south pole (the antipodal point of
 the circle) which is the center of the line!
@@ -234,16 +234,14 @@ the circle) which is the center of the line!
     * beginning of the line + (length of second half of line), when the cursor
       lies in the first half of the line.
 
-Note that skipping backward (``S``) in the first half of the line is *not* considered skipping away from the center (likewise for ``s`` in the second half of the line).  In fact, you are skipping toward the center when you consider the end and beginning of the line to be connected.  These skips are best understood using the circle analogy above still noting that
-``s`` skips counter-clockwise, ``S`` clockwise and that skips move half the arc
+Note that skipping backward (``<leader>h``) in the first half of the line is *not* considered skipping away from the center (likewise for ``<leader>l`` in the second half of the line).  In fact, you are skipping toward the center when you consider the end and beginning of the line to be connected.  These skips are best understood using the circle analogy above still noting that
+``<leader>l`` skips counter-clockwise, ``<leader>h`` clockwise and that skips move half the arc
 length between the current position and the south pole (which is the center of the line).
 
 **Examples**
-* ``0 --s--> 1/4 --s--> 3/8``
-* ``1 --S--> 3/4 --S--> 5/8``
-* ``1/4 --S--> 7/8 --S--> 11/16 (= 1/2 + 3/8)``
-* ``anywhere --gs--> 1/2 --s--> 1``
-* ``anywhere --gs--> 1/2 --S--> 0``
+* ``0 --<leader>l--> 1/4 --<leader>l--> 3/8``
+* ``1 --<leader>h--> 3/4 --<leader>h--> 5/8``
+* ``1/4 --<leader>h--> 7/8 --<leader>h--> 11/16 (= 1/2 + 3/8)``
 
 This mode may seem awkward, but it may be the most advantageous.  In normal mode, the
 cursor jumps across the center quickly,  and becomes more accurate near the
@@ -298,7 +296,7 @@ Options
   the end (resp. beginning) of line.  Default 0.
 * ``g:vimskip_wraptomiddleline`` : Set to 1 to wrap to the middle line (equivalent to line moved to by ``M``) when skipping vertically through the top/bottom line of the screen.  Default 0.
 * ``g:vimskip_split_passthroughcenter``: (for split mode)  Set to 0 to keep the
-  cursor from passing through the center by repeatedly tapping ``s`` or ``S``.
+  cursor from passing through the center by repeatedly tapping ``<leader>l`` or ``<leader>h``.
   Default 1.
 * ``g:vimskip_helix``: Set to 1 to move down (resp. up) a line when skipping
   forward (resp. backward) through the beginning (resp. end) of a line.
