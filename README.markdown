@@ -110,9 +110,9 @@ Key Maps
 The way you "skip" forward or backward depends on your mode (see below) and the
 options you have set.
 
-* ``s`` - skip forward
-* ``S`` - skip backward
-* ``gs`` - skip to center of the line
+* ``<leader>l`` - skip forward
+* ``<leader>h`` - skip backward
+* ``<leader><leader>l`` - skip to center of the line
 
 Modes
 =====
@@ -123,11 +123,11 @@ the cursor in the line as a fraction of the line's length, e.g. ``0``, ``1/2``
 and ``1`` mean the cursor is at the beginning, middle and end of the line
 respectively.
 
-To give brief examples of how sequences like ``sS`` behave, I'll write
-``0 --s--> 1/2 --S--> 1/4`` to mean "first press ``s`` then ``S`` move your
+To give brief examples of how sequences like ``<leader>l<leader>h`` behave, I'll write
+``0 --<leader>l--> 1/2 --<leader>h--> 1/4`` to mean "first press ``<leader>l`` then ``<leader>h`` move your
 cursor *from* the beginning of the line, *to* the middle of the line, *then* to
 ``1/4`` of the line's length from the beginning of the line.
-Of course, this also shows that stopping after the first ``s`` will leave your cursor at the middle of the line.  These examples are given to showcase how a couple presses of ``s`` and ``S`` get to predetermined spots quickly.
+Of course, this also shows that stopping after the first ``<leader>l`` will leave your cursor at the middle of the line.  These examples are given to showcase how a couple presses of ``<leader>l`` and ``<leader>h`` get to predetermined spots quickly.
 
 Normal
 ------
@@ -141,11 +141,11 @@ line quickly and slows down near the beginning/end of the line.
   beginning of the line.
 
 **Examples**
-* ``0 --s--> 1/2 --s--> 3/4``
-* ``0 --s--> 1/2 --S--> 1/4``
-* ``1 --S--> 1/2 --s--> 3/4``
-* ``anywhere --gs--> 1/2 --s--> 3/4``
-* ``1 --s--> 0`` and ``0 --S--> 1``, so that skipping forward through the end of the line wraps you to the beginning of the line (analagously for skipping backward through the beginning).
+* ``0 --<leader>l--> 1/2 --<leader>l--> 3/4``
+* ``0 --<leader>l--> 1/2 --<leader>h--> 1/4``
+* ``1 --<leader>h--> 1/2 --<leader>l--> 3/4``
+* ``anywhere --<leader><leader>l--> 1/2 --<leader>l--> 3/4``
+* ``1 --<leader>l--> 0`` and ``0 --<leader>h--> 1``, so that skipping forward through the end of the line wraps you to the beginning of the line (analagously for skipping backward through the beginning).
 
 Split
 -----
@@ -164,11 +164,11 @@ quickly.
 
 
 **Examples**
-* ``0 --s--> 1/4 --s--> 3/8``
-* ``0 --s--> 1/4 --S--> 1/8``
-* ``1 --S--> 3/4 --S--> 5/8``
-* ``1 --S--> 3/4 --s--> 7/8``
-* ``anywhere --gs--> 1/2 --s--> 3/4``
+* ``0 --<leader>l--> 1/4 --<leader>l--> 3/8``
+* ``0 --<leader>l--> 1/4 --<leader>h--> 1/8``
+* ``1 --<leader>h--> 3/4 --<leader>h--> 5/8``
+* ``1 --<leader>h--> 3/4 --<leader>l--> 7/8``
+* ``anywhere --<leader><leader>l--> 1/2 --<leader>l--> 3/4``
 
 By default, tapping ``<leader>l`` from the beginning of the line will eventually allow
 you to "pass through" to the second half of the line (likewise for ``<leader>h`` moving
@@ -189,9 +189,9 @@ mode, be sure to adjust ``g:vimskip_multiplier``.
 * ``<leader>h`` - skip cursor backward ``(line length) * (g:vimskip_multiplier)``.
 
 **Examples** (when ``g:vimskip_multiplier=0.2``)
-* ``0 --s--> 1/5 --s--> 2/5`` etc.
-* ``1 --S--> 4/5 --S--> 3/5`` etc.
-* ``anywhere --gs--> 1/2 --s--> 7/10``
+* ``0 --<leader>l--> 1/5 --<leader>l--> 2/5`` etc.
+* ``1 --<leader>h--> 4/5 --<leader>h--> 3/5`` etc.
+* ``anywhere --<leader><leader>l--> 1/2 --<leader>l--> 7/10``
 
 Anti(podal)
 -----------
@@ -223,12 +223,12 @@ arc length from their current position to the north pole.  In anti(podal) mode,
 simply move the point which we skip toward to the south pole (the antipodal point of
 the circle) which is the center of the line!
 
-* ``s`` - skip forward , wrap if necessary, half the distance between the cursor
+* ``<leader>l`` - skip forward , wrap if necessary, half the distance between the cursor
   and the:
     * center, when the cursor is in the first half of the line
     * end of the line + (length of first half of line), when the cursor is in
       the second half of the line.
-* ``S`` - skip backward, wrap if necessary, half the distance between the cursor
+* ``<leader>h`` - skip backward, wrap if necessary, half the distance between the cursor
   and the:
     * center, when the cursor is in the second half of the line
     * beginning of the line + (length of second half of line), when the cursor
@@ -281,10 +281,10 @@ Options
 =======
 
 * ``g:vimskip_disable_default_maps``: set to 1 to not use the default key
-  mappings (``<leader>l`` ``<leader>h``, ``<leader><leader>l``).  Default 0.
-* ``g:vimskip_mapforwardskip``: key to map forward skip.  Default '<leader>l'.
-* ``g:vimskip_mapbackwardskip``: key to map backward skip.  Default '<leader>h'.
-* ``g:vimskip_maptocenter``: key to map movement to center of line.  Default '<leader><leader>l'
+  mappings (``<leader>l``, ``<leader>h`` and ``<leader><leader>l``).  Default 0.
+* ``g:vimskip_mapforwardskip``: key to map forward skip.  Default ``<leader>l``.
+* ``g:vimskip_mapbackwardskip``: key to map backward skip.  Default ``<leader>h``.
+* ``g:vimskip_maptocenter``: key to map movement to center of line.  Default ``<leader><leader>l``
 * ``g:vimskip_multiplier``: (float) between 0 and 1.  Determines the fraction of
   a distance to skip. Values greater than ``1`` were not intended to be used,
   though they are not restricted.  You currently cannot skip past the succeeding line
