@@ -1,10 +1,10 @@
 Anti	vimskip.txt	/*Anti*
 Fixed	vimskip.txt	/*Fixed*
-Intro	vimskip.txt	/*Intro*
 Modes	vimskip.txt	/*Modes*
 Normal	vimskip.txt	/*Normal*
+Other-Mappings	vimskip.txt	/*Other-Mappings*
+Skip-Options	vimskip.txt	/*Skip-Options*
 Split	vimskip.txt	/*Split*
-TLDR	vimskip.txt	/*TLDR*
 g:vimskip_disable_default_maps	vimskip.txt	/*g:vimskip_disable_default_maps*
 g:vimskip_helix	vimskip.txt	/*g:vimskip_helix*
 g:vimskip_ignore_initial_ws	vimskip.txt	/*g:vimskip_ignore_initial_ws*
@@ -16,5 +16,4 @@ g:vimskip_mode	vimskip.txt	/*g:vimskip_mode*
 g:vimskip_multiplier	vimskip.txt	/*g:vimskip_multiplier*
 g:vimskip_split_passthroughcenter	vimskip.txt	/*g:vimskip_split_passthroughcenter*
 g:vimskip_wraptocenter	vimskip.txt	/*g:vimskip_wraptocenter*
-very	vimskip.txt	/*very*
 vimskip.txt	vimskip.txt	/*vimskip.txt*
